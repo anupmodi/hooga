@@ -6,392 +6,235 @@
 
 (function($) {
 
-   /*---------------------------------------------------- */
+	/*---------------------------------------------------- */
 	/* Preloader
 	------------------------------------------------------ */ 
-   $(window).load(function() {
+  	$(window).load(function() {
 
-      // will first fade out the loading animation 
-    	$("#loader").fadeOut("slow", function(){
+   	// will first fade out the loading animation 
+    	$("#status").fadeOut("slow"); 
 
-        // will fade out the whole DIV that covers the website.
-        $("#preloader").delay(300).fadeOut("slow");
+    	// will fade out the whole DIV that covers the website. 
+    	$("#preloader").delay(500).fadeOut("slow").remove();      
 
-      });     
+  	}) 
 
-  	})
+  	/*----------------------------------------------------*/
+  	/* Backstretch
+  	/*----------------------------------------------------*/
 
-   /*---------------------------------------------------- */
-	/* Final Countdown Settings
-	------------------------------------------------------ */
-	var finalDate = '2017/01/01';
-
-	$('div#counter').countdown(finalDate)
-   	.on('update.countdown', function(event) {
-
-   		$(this).html(event.strftime('<span>%D <em>days</em></span>' + 
-   										 	 '<span>%H <em>hours</em></span>' + 
-   										 	 '<span>%M <em>minutes</em></span>' +
-   										 	 '<span>%S <em>seconds</em></span>'));
-
-   });
-
-   /*----------------------------------------------------*/
-	/*  Placeholder Plugin Settings
-	------------------------------------------------------ */  	 
-	$('input').placeholder() 
-	
-
-   /*----------------------------------------------------- */
-   /* Modals
-   ------------------------------------------------------- */   
-   $('.modal-toggles ul').on('click', 'a', function(e) {
-
-   	var html = $('html'),
-   		 main = $('main, footer'),
-   		 footer = $('footer'),           
-          curMod = $(this).attr('href'),  
-          modal = $(curMod),
-          modClose = modal.find('#modal-close');          
-         
-		main.fadeOut(500, function(){
-			$('html,body').scrollTop(0);
-        	modal.addClass('is-visible');
-      });  
-      
-      e.preventDefault();
-
-      // for old ie
-      if (html.hasClass('oldie')) {
-
-      	$(document).on('click', "#modal-close", function(evt) {
-	      	$('html,body').scrollTop(0); 
-	      	modal.removeClass('is-visible');
-	      	setTimeout(function() {      
-	        		main.fadeIn(500); 
-	        	}, 500);       
-	        	        
-	        	evt.preventDefault();
-      	});
-
-      }
-      // other browsers
-      else {
-
-      	modClose.on('click', function(evt) {
-	      	$('html,body').scrollTop(0); 
-	      	modal.removeClass('is-visible');
-	      	setTimeout(function() {      
-	        		main.fadeIn(500); 
-	        	}, 500);       
-	        	        
-	        	evt.preventDefault();
-	      });
-
-      }     	
-
-   });
-
-   /*---------------------------------------------------- */
-	/* Owl Carousel
-	------------------------------------------------------ */ 
-	$("#owl-slider").owlCarousel({
-        navigation: false,
-        pagination: true,
-        items: 4,
-        navigationText: false
-    });
-
+  	if($("html").hasClass('ie8')) {
+  		$("#hero").backstretch("images/hero-bg.jpg");  	
+  		$("#page-title").backstretch("images/hero-bg.jpg");	
+  	} 
 
    /*----------------------------------------------------*/
   	/* FitText Settings
   	------------------------------------------------------ */
   	setTimeout(function() {
 
-   	  $('main h1, #mod-about h1').fitText(1.1, { minFontSize: '28px', maxFontSize: '38px' });
+   	$('#page-title h1').fitText(1, { minFontSize: '38px', maxFontSize: '54px' });
 
   	}, 100);
 
 
-   /*---------------------------------------------------- */
-   /* ajaxchimp
-	------------------------------------------------------ */
+	/*----------------------------------------------------*/
+	/* Adjust Primary Navigation Background Opacity
+	------------------------------------------------------*/
+   $(window).on('scroll', function() {
 
-	// Example MailChimp url: http://xxx.xxx.list-manage.com/subscribe/post?u=xxx&id=xxx
-	var mailChimpURL = 'http://facebook.us8.list-manage.com/subscribe/post?u=cdb7b577e41181934ed6a6a44&amp;id=e65110b38d'
+		var h = $('header').height();
+		var y = $(window).scrollTop();
+      var header = $('#main-header');
 
-
-	$('#mc-form').ajaxChimp({
-
-		language: 'es',
-	   url: mailChimpURL
+	   if ((y > h + 30 ) && ($(window).outerWidth() > 768 ) ) {
+	      header.addClass('opaque');
+	   }
+      else {
+         if (y < h + 30) {
+            header.removeClass('opaque');
+         }
+         else {
+            header.addClass('opaque');
+         }
+      }
 
 	});
 
-	// Mailchimp translation
-	//
-	//  Defaults:
-	//	 'submit': 'Submitting...',
-	//  0: 'We have sent you a confirmation email',
-	//  1: 'Please enter a value',
-	//  2: 'An email address must contain a single @',
-	//  3: 'The domain portion of the email address is invalid (the portion after the @: )',
-	//  4: 'The username portion of the email address is invalid (the portion before the @: )',
-	//  5: 'This email address looks fake or invalid. Please enter a real email address'
+   /*-----------------------------------------------------*/
+	/* Alert Boxes
+  	-------------------------------------------------------*/
+	$('.alert-box').on('click', '.close', function() {
+	  $(this).parent().fadeOut(500);
+	});	
 
-	$.ajaxChimp.translations.es = {
-	  'submit': 'Submitting...',
-	  0: '<i class="fa fa-check"></i> We have sent you a confirmation email',
-	  1: '<i class="fa fa-warning"></i> You must enter a valid e-mail address.',
-	  2: '<i class="fa fa-warning"></i> E-mail address is not valid.',
-	  3: '<i class="fa fa-warning"></i> E-mail address is not valid.',
-	  4: '<i class="fa fa-warning"></i> E-mail address is not valid.',
-	  5: '<i class="fa fa-warning"></i> E-mail address is not valid.'
+
+   /*-----------------------------------------------------*/
+  	/* Mobile Menu
+   ------------------------------------------------------ */  
+   var menu_icon = $("<span class='menu-icon'></span>");
+  	var toggle_button = $("<a>", {                         
+                        id: "toggle-btn", 
+                        html : "<span class='menu-text'>Menu</span>",
+                        title: "Menu",
+                        href : "#" } 
+                        );
+  	var nav_wrap = $('nav#nav-wrap')
+  	var nav = $("ul#nav");  
+   
+   /* if JS is enabled, remove the two a.mobile-btns 
+  	and dynamically prepend a.toggle-btn to #nav-wrap */
+  	nav_wrap.find('a.mobile-btn').remove(); 
+  	toggle_button.append(menu_icon); 
+   nav_wrap.prepend(toggle_button); 
+
+  	toggle_button.on("click", function(e) {
+   	e.preventDefault();
+    	nav.slideToggle("fast");     
+  	});
+
+  	if (toggle_button.is(':visible')) nav.addClass('mobile');
+  	$(window).resize(function() {
+   	if (toggle_button.is(':visible')) nav.addClass('mobile');
+    	else nav.removeClass('mobile');
+  	});
+
+  	$('ul#nav li a').on("click", function() {      
+   	if (nav.hasClass('mobile')) nav.fadeOut('fast');      
+  	});
+
+
+  	/*----------------------------------------------------*/
+  	/* Smooth Scrolling
+  	------------------------------------------------------ */
+  	$('.smoothscroll').on('click', function (e) {
+	 	
+	 	e.preventDefault();
+
+   	var target = this.hash,
+    	$target = $(target);
+
+    	$('html, body').stop().animate({
+       	'scrollTop': $target.offset().top
+      }, 800, 'swing', function () {
+      	window.location.hash = target;
+      });
+
+  	});
+
+
+  	/*----------------------------------------------------*/
+  	/* Highlight the current section in the navigation bar
+  	------------------------------------------------------*/
+	var sections = $("section"),
+	navigation_links = $("#nav-wrap a");
+
+	if($("body").hasClass('homepage')) {
+
+		sections.waypoint( {
+
+	      handler: function(event, direction) {
+
+			   var active_section;
+
+				active_section = $(this);
+				if (direction === "up") active_section = active_section.prev();
+
+				var active_link = $('#nav-wrap a[href="#' + active_section.attr("id") + '"]');
+
+	         navigation_links.parent().removeClass("current");
+				active_link.parent().addClass("current");
+
+			},
+			offset: '25%'
+		});
+
 	}
 
-	/*---------------------------------------------------- */
-	/* Map
-	------------------------------------------------------ */
-	var latitude = 14.549072,
-		 longitude = 121.046958,
-		 map_zoom = 15,		 
-		 main_color = '#d8ac00',
-		 saturation_value= -30,
-		 brightness_value= 5,
-		 winWidth = $(window).width();		 
+   /*----------------------------------------------------*/
+  	/* Flexslider
+  	/*----------------------------------------------------*/
+  	$(window).load(function() {  		
 
-   // marker url
-	if ( winWidth > 480 ) {
-		marker_url = 'images/icon-location-b.png';                    
-   } else {
-      marker_url = 'images/icon-location.png';            
-   }	 
+	  	$('#hero-slider').flexslider({
+	   	namespace: "flex-",
+	      controlsContainer: ".flex-container",
+	      animation: 'fade',
+	      controlNav: true,
+	      directionNav: false,
+	      smoothHeight: true,
+	      slideshowSpeed: 7000,
+	      animationSpeed: 600,
+	      randomize: false
+	   });	   
 
-	// map style
-	var style = [ 
-		{
-			// set saturation for the labels on the map
-			elementType: "labels",
-			stylers: [
-				{ saturation: saturation_value }
-			]
-		},  
-	   {	// poi stands for point of interest - don't show these lables on the map 
-			featureType: "poi",
-			elementType: "labels",
-			stylers: [
-				{visibility: "off"}
-			]
-		},
-		{
-			// don't show highways lables on the map
-	      featureType: 'road.highway',
-	      elementType: 'labels',
-	      stylers: [
-	         { visibility: "off" }
-	      ]
-	   }, 
-		{ 	
-			// don't show local road lables on the map
-			featureType: "road.local", 
-			elementType: "labels.icon", 
-			stylers: [
-				{ visibility: "off" } 
-			] 
-		},
-		{ 
-			// don't show arterial road lables on the map
-			featureType: "road.arterial", 
-			elementType: "labels.icon", 
-			stylers: [
-				{ visibility: "off" }
-			] 
-		},
-		{
-			// don't show road lables on the map
-			featureType: "road",
-			elementType: "geometry.stroke",
-			stylers: [
-				{ visibility: "off" }
-			]
-		}, 
-		// style different elements on the map
-		{ 
-			featureType: "transit", 
-			elementType: "geometry.fill", 
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		}, 
-		{
-			featureType: "poi",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "poi.government",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "poi.sport_complex",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "poi.attraction",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "poi.business",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "transit",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "transit.station",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "landscape",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-			
-		},
-		{
-			featureType: "road",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		},
-		{
-			featureType: "road.highway",
-			elementType: "geometry.fill",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
-		}, 
-		{
-			featureType: "water",
-			elementType: "geometry",
-			stylers: [
-				{ hue: main_color },
-				{ visibility: "on" }, 
-				{ lightness: brightness_value }, 
-				{ saturation: saturation_value }
-			]
+   });
+
+ 
+	/*----------------------------------------------------*/
+	/*	contact form
+	------------------------------------------------------*/
+
+   $('form#contactForm button.submit').on('click', function() {
+
+      $('#image-loader').fadeIn();
+
+      var contactFname = $('#contactForm #contactFname').val();
+      var contactLname = $('#contactForm #contactLname').val();
+      var contactEmail = $('#contactForm #contactEmail').val();
+      var contactSubject = $('#contactForm #contactSubject').val();
+      var contactMessage = $('#contactForm #contactMessage').val();
+
+      var data = 'contactFname=' + contactFname  + '&contactLname=' + contactLname + 
+                 '&contactEmail=' + contactEmail + '&contactSubject=' + contactSubject + 
+                 '&contactMessage=' + contactMessage;
+
+      $.ajax({
+
+	      type: "POST",
+	      url: "inc/sendEmail.php",
+	      data: data,
+	      success: function(msg) {
+
+            // Message was sent
+            if (msg == 'OK') {
+               $('#image-loader').fadeOut();
+               $('#message-warning').hide();
+               $('#contactForm').fadeOut();
+               $('#message-success').fadeIn();   
+            }
+            // There was an error
+            else {
+               $('#image-loader').fadeOut();
+               $('#message-warning').html(msg);
+	            $('#message-warning').fadeIn();
+            }
+
+	      }
+
+      });
+      return false;
+   });
+
+
+	/*-----------------------------------------------------*/
+  	/* Back to top
+   ------------------------------------------------------ */ 
+	var pxShow = 300; // height on which the button will show
+	var fadeInTime = 400; // how slow/fast you want the button to show
+	var fadeOutTime = 400; // how slow/fast you want the button to hide
+	var scrollSpeed = 300; // how slow/fast you want the button to scroll to top. can be a value, 'slow', 'normal' or 'fast'
+
+   // Show or hide the sticky footer button
+	jQuery(window).scroll(function() {
+
+		if (jQuery(window).scrollTop() >= pxShow) {
+			jQuery("#go-top").fadeIn(fadeInTime);
+		} else {
+			jQuery("#go-top").fadeOut(fadeOutTime);
 		}
-	];
-		
-	// map options
-	var map_options = {
 
-      	center: new google.maps.LatLng(latitude, longitude),
-      	zoom: 15,
-      	panControl: false,
-      	zoomControl: false,
-        	mapTypeControl: false,
-      	streetViewControl: false,
-      	mapTypeId: google.maps.MapTypeId.ROADMAP,
-      	scrollwheel: false,
-      	styles: style
-
-    	};
-
-   // inizialize the map
-	var map = new google.maps.Map(document.getElementById('map-container'), map_options);
-
-	// add a custom marker to the map				
-	var marker = new google.maps.Marker({
-
-		 	position: new google.maps.LatLng(latitude, longitude),
-		 	map: map,
-		 	visible: true,
-		 	icon: marker_url
-		 
-		});
-
-	// add custom buttons for the zoom-in/zoom-out on the map
-	function CustomZoomControl(controlDiv, map) {
-	
-		// grap the zoom elements from the DOM and insert them in the map 
-	 	var controlUIzoomIn= document.getElementById('map-zoom-in'),
-		  	 controlUIzoomOut= document.getElementById('map-zoom-out');
-
-		controlDiv.appendChild(controlUIzoomIn);
-		controlDiv.appendChild(controlUIzoomOut);
-
-		// Setup the click event listeners and zoom-in or out according to the clicked element
-		google.maps.event.addDomListener(controlUIzoomIn, 'click', function() {
-			map.setZoom(map.getZoom()+1)
-		});
-		google.maps.event.addDomListener(controlUIzoomOut, 'click', function() {
-			map.setZoom(map.getZoom()-1)
-		});
-			
-	}
-
-	var zoomControlDiv = document.createElement('div');
-	var zoomControl = new CustomZoomControl(zoomControlDiv, map);
-
-	// insert the zoom div on the top right of the map
-	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(zoomControlDiv);	
-
+	}); 
 
 
 })(jQuery);
