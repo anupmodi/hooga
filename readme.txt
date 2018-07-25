@@ -1,18 +1,17 @@
 
 ==================================================================================================
 
-ADVENT is a clean, modern and well-crafted coming soon HTML5 template. It’s the perfect template 
-to keep your visitors informed about the official website launch. The template features a 
-countdown timer, a google map section, an about section where you can add information about 
-your website and a mailchimp ready ajax subscription form. The template is very customizable 
-and pretty easy to use.
+PUREMEDIA is a clean and modern template for your business and portfolio websites. The design is 
+fully responsive, compatible with all major browsers, HDPI + Retina ready. It looks stunning on 
+any device. In addition, the template also includes a blog and portfolio layouts and a working 
+ajax contact form.
 
 ==================================================================================================
 
 
 LICENSE:
 
-ADVENT is released under the Creative Commons Attribution 3.0 License
+PUREMEDIA is released under the Creative Commons Attribution 3.0 License
 (http://creativecommons.org/licenses/by/3.0/). This means that you are free:
 
    to Share - to copy, distribute, display, and perform the work
@@ -57,22 +56,23 @@ Also, keep your Paypal receipt as proof of payment and your good to go.
 ------------------------------------------------------------------------------------------------------ 
 
 
+
 SUPPORT:
     
-Since ADVENT is distributed for free, support is not offered. ZOON is coded according 
+Since PUREMEDIA is distributed for free, support is not offered. PUREMEDIA is coded according 
 to current web standards and we did our best to make the template easy to use and modify.
 If you have minimum web development experience, you can easily modify the template. 
 However, If you're still new to HTML and CSS, I suggest that you visit the 
 following tutorials:
 
  - http://tutsplus.com/course/30-days-to-learn-html-and-css/
- - http://learn.shayhowe.com/html-css/
+ - http://code.tutsplus.com/series/web-development-from-scratch--net-19995
 
 These will teach you the essentials of HTML and CSS. In addition, if you want to include
 jQuery in your skill-set, you can also check out these tutorials: 
 
- - http://code.tutsplus.com/courses/30-days-to-learn-jquery
- - http://try.jquery.com/
+ - https://tutsplus.com/course/30-days-to-learn-jquery/
+ - http://code.tutsplus.com/articles/jquery-for-absolute-beginners-video-series--net-2134
 
 
 ------------------------------------------------------------------------------------------------------ 
@@ -93,24 +93,40 @@ SOURCES AND CREDITS:
 I've used the following resources as listed.
 
 Fonts:
- - Montserrat Font (http://www.google.com/fonts/specimen/Montserrat)
+ - Montserrat Font(for the logo)  - http://www.google.com/fonts/specimen/Montserrat
+ - Merriweather Font - http://www.google.com/fonts/specimen/Merriweather 
+ - Raleway Font - http://www.google.com/fonts/specimen/Raleway
 
 Icons:
  - Font Awesome (http://fortawesome.github.io/Font-Awesome/)
- - Micons (http://geticonjar.com/freebies/231-micons/)
+ - Simple Line Icons (http://graphicburger.com/simple-line-icons-webfont/)
 
 Stock Photos and Graphics:
  - UnSplash.com (http://unsplash.com/)
+ - gratisography.com (http://www.gratisography.com/)
+ - morguefile.com (http://www.morguefile.com/)
+ - splitshire.com (http://splitshire.com/)
  
 Javascript Files:
-
  - JQuery (http://jquery.com/)
  - Modernizr (http://modernizr.com/)
- - jQuery Final Countdown (http://hilios.github.io/jQuery.countdown/)
- - jQuery Placeholder (https://github.com/mathiasbynens/jquery-placeholder)
- - Fittext (http://fittextjs.com/)
- - Owl Carousel (http://owlgraphic.com/owlcarousel/)
- - AjaxChimp (https://github.com/scdoshi/jquery-ajaxchimp)
+ - jQuery Waypoints (http://imakewebthings.com/jquery-waypoints/)
+ - jQuery Backstretch (https://github.com/srobbin/jquery-backstretch)
+ - FitText (http://fittextjs.com/) 
+
+
+--------------------------------------------------------------------------------------------------------- 
+
+SOCIAL:
+
+Stay up to date and get notified of new template releases. 
+Subscribe and follow us on:
+
+- GooglePlus (https://plus.google.com/+Styleshout-googleplus/)
+- Twitter (https://twitter.com/sshout06)
+- facebook (https://www.facebook.com/styleshout)
+
+
 
 --------------------------------------------------------------------------------------------------------- 
 
